@@ -1,5 +1,5 @@
 #include <iostream>
-#include <stack>
+#include <queue>
 using namespace std;
 
 // Function to print a seperator line
@@ -8,75 +8,87 @@ void printLine()
     cout << "--------------------------------------------\n\n";
 }
 
-// Class for queue
-class queue
+// Class for stack
+class stack
 {
-    // Two stacks for queue operations
-    stack<int> s1, s2;
+    int N;             // N for size
+    queue<int> q1, q2; // Queues
 
-    // Public functions for operations
 public:
-    // Function to add data to queue
-    void enqueue(int data)
+    // Constructor
+    stack()
     {
-        s1.push(data);
+        // Initialize the size
+        N = 0;
+    }
+
+    // Push operation
+    void push(int data)
+    {
+        // Push our new data to queue q2
+        q2.push(data);
+
+        // Update the size of stack
+        N++;
+
+        // Push all data from q1 to q2 and remove from q1
+        while (!q1.empty())
+        {
+            // Add data to q2
+            q2.push(q1.front());
+
+            // Pop q1
+            q1.pop();
+        }
+
+        // Reveres the queues
+        queue<int> temp = q1;
+        q1 = q2;
+        q2 = temp;
 
         // Print the message
         cout << "\nData Enqueued Successfully!\n\n";
     }
 
-    // Function to remove data from queue
-    void dequeue()
+    // Pop operation
+    void pop()
     {
         // Check if queue is empty
-        if (s1.empty() && s2.empty())
+        if (N == 0)
         {
             cout << "\nQUEUE UNDERFLOW!\n\n";
 
             return;
         }
 
-        // If s2 is empty and s1 is not empty
-        if (s2.empty())
-        {
-            // Loop and add all elements to s2
-            while (!s1.empty())
-            {
-                // Add top of s1 to s2
-                s2.push(s1.top());
+        // Pop from q1
+        q1.pop();
 
-                // Pop s1
-                s1.pop();
-            }
-        }
-
-        // Store the top value of s2 for poping
-        int topVal = s2.top();
-
-        // Pop s2
-        s2.pop();
-
-        // Print the poped element
-        cout << "\nDequeued Element is:" << topVal << "\n";
+        // Decrease the size
+        N--;
 
         // Print the message
         cout << "\nData Dequeued Successfully!\n\n";
-
-        return;
     }
 
-    // Function to check if queue is empty
-    void empty()
+    // Top / Peek operation
+    void top()
     {
         // Check if queue is empty
-        if (s1.empty() && s2.empty())
+        if (N == 0)
         {
-            cout << "\nQUEUE IS EMPTY!\n\n";
+            cout << "\nQUEUE UNDERFLOW!\n\n";
+
+            return;
         }
-        else
-        {
-            cout << "\nQUEUE IS NOT EMPTY!\n\n";
-        }
+
+        cout << "\nThe front most element in the Queue is: " << q1.front() << "\n\n";
+    }
+
+    // Size of Queue
+    void size()
+    {
+        cout << "\nThe size of the Queue is: " << N << "\n\n";
     }
 };
 
@@ -85,11 +97,11 @@ int main()
 {
     // Title of the program
     printLine();
-    cout << "***** QUEUE USING 2 STACKS *****\n\n";
+    cout << "***** STACK USING QUEUE - PUSH COSTLY *****\n\n";
     printLine();
 
-    // Initialize queue object
-    queue q;
+    // Initialize the stack object
+    stack st;
 
     // Var to store the data
     int data;
@@ -98,9 +110,10 @@ int main()
     while (1)
     {
         // Declare all the operations
-        cout << "1. Enqueue Operations\n";
-        cout << "2. Dequeue Operations\n";
-        cout << "3. Check Empty Operations\n";
+        cout << "1. Push Operation\n";
+        cout << "2. Pop Operation\n";
+        cout << "3. Peek Operation\n";
+        cout << "4. Size of Queue\n";
         cout << "0. Exit\n";
 
         // Get the choice from user
@@ -117,7 +130,7 @@ int main()
             cin >> data;
 
             // Add data to queue
-            q.enqueue(data);
+            st.push(data);
 
             // Add line break
             printLine();
@@ -126,7 +139,7 @@ int main()
 
         case 2:
             // Pop the data from queue
-            q.dequeue();
+            st.pop();
 
             // Add line break
             printLine();
@@ -134,8 +147,17 @@ int main()
             break;
 
         case 3:
-            // Check if queue is emtpy
-            q.empty();
+            // Get the top of stack
+            st.top();
+
+            // Add line break
+            printLine();
+
+            break;
+
+        case 4:
+            // Get the top of stack
+            st.size();
 
             // Add line break
             printLine();

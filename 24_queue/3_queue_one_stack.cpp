@@ -20,6 +20,9 @@ public:
     void enqueue(int data)
     {
         s1.push(data);
+
+        // Print the message
+        cout << "\nData Enqueued Successfully!\n\n";
     }
 
     // Function to remove data from queue

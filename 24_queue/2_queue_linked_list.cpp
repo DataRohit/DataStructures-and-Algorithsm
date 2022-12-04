@@ -50,15 +50,18 @@ public:
 
             // Update the front pointer
             front = newNode;
+        }
+        else
+        {
+            // Add the data to next of back
+            back->next = newNode;
 
-            return;
+            // Update the back pointer
+            back = newNode;
         }
 
-        // Add the data to next of back
-        back->next = newNode;
-
-        // Update the back pointer
-        back = newNode;
+        // Print the message
+        cout << "\nData Enqueued Successfully!\n\n";
     }
 
     // Function to remove data from queue
@@ -80,6 +83,9 @@ public:
 
         // Free the memory
         delete toDelete;
+
+        // Print the message
+        cout << "\nData Dequeued Successfully!\n\n";
     }
 
     // Get the front value from queue
