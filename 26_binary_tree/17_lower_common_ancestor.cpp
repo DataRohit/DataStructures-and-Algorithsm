@@ -120,7 +120,7 @@ int main()
 {
     // Title of the program
     printLine();
-    cout << "***** BINARY TREE *****\n\n";
+    cout << "***** LOWEST COMMONE ANCESTOR BINARY TREE *****\n\n";
     printLine();
 
     // Create a root node pointer
@@ -157,6 +157,6 @@ int main()
 
     // Print the LCA
     cout
-        << "The Lowest Common Ancestor of 7 and 6 is: "
-        << getLCA(root, 7, 6) << "\n\n";
+        << "The Lowest Common Ancestor of 7 and 4 is: "
+        << getLCA(root, 7, 4) << "\n\n";
 }
